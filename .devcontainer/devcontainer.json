@@ -1,12 +1,6 @@
 {
-  "name": "Kali Linux (noVNC)",
+  "name": "Kali Linux (noVNC 手動版)",
   "image": "kalilinux/kali-rolling",
-  "features": {
-    "ghcr.io/devcontainers/features/desktop-vnc:1": {
-      "version": "latest",
-      "vncPassword": "kali"
-    }
-  },
   "forwardPorts":,
   "portsAttributes": {
     "6080": {
@@ -14,6 +8,7 @@
       "onAutoForward": "openBrowser"
     }
   },
-  "postCreateCommand": "apt-get update && apt-get install -y kali-linux-headless",
-  "remoteUser": "vscode"
+  "postCreateCommand": "apt-get update && apt-get install -y kali-linux-headless xfce4 xfce4-goodies x11vnc xvfb novnc && mkdir -p ~/.vnc && x11vnc -storepasswd kali ~/.vnc/passwd && sed -i 's/set_port 6080/set_port 6080/' /usr/share/novnc/utils/novnc_proxy",
+  "postStartCommand": "export DISPLAY=:1 && Xvfb :1 -screen 0 1280x1024x24 & sleep 2 && startxfce4 & sleep 2 && x11vnc -rfbauth ~/.vnc/passwd -display :1 -forever -shared & sleep 2 && /usr/share/novnc/utils/novnc_proxy --vnc localhost:5900 --listen 6080 &",
+  "remoteUser": "root"
 }
