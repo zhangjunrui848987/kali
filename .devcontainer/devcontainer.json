@@ -1,0 +1,22 @@
+{
+  "name": "Kali Linux (noVNC)",
+  "image": "kalilinux/kali-rolling",
+  // 透過微軟官方 Feature 自動安裝輕量案桌面 (Fluxbox) 與 noVNC 伺服器
+  "features": {
+    "ghcr.io/devcontainers/features/desktop-vnc:1": {
+      "version": "latest",
+      "vncPassword": "kali" 
+    }
+  },
+  // 自動將 noVNC 的 6080 連接埠顯示在 Codespaces 中，並在建置完成後自動開啟瀏覽器
+  "forwardPorts": [6080],
+  "portsAttributes": {
+    "6080": {
+      "label": "Kali noVNC Desktop",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  // 容器建立後，順便在背景更新並安裝常用的 Kali 工具
+  "postCreateCommand": "apt-get update && apt-get install -y kali-linux-headless",
+  "remoteUser": "vscode"
+}
