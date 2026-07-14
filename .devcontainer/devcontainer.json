@@ -4,7 +4,7 @@
   "features": {
     "ghcr.io/devcontainers/features/desktop-vnc:1": {
       "version": "latest",
-      "vncPassword": "kali" 
+      "vncPassword": "kali"
     }
   },
   "forwardPorts":,
